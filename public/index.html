@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="shortcut icon" href="img/logo-sicc.png" style="width: 30px; heigth: 32px;" type="image/x-png">
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqevNq6GsrD1hdfhBIHSZqxgAEokWitT4"></script>
-    <script src="js/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   </head>
   <body>
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Login -->
-    <div class="wrapper">
+    <div class="wrapper d-flex justify-content-center align-items-center" id="wrapper">
       <div class="container-login" id="container-login">
         <a id="saiTrocaSenha" class="display-none" href="#">
           <i class="fa fa-3x fa-arrow-circle-left" style="color: #757575" aria-hidden="true"></i>
@@ -56,7 +56,17 @@
               <span style="margin-left: 9px">SICC</span> <br>
               <span id="esc-login"></span>
             </h4>
-            <p id="emailError" class="display-none text-center" style="color: red"><strong>Email ou senha inválidos. Corrija e tente novamente</strong></p>
+
+            <p id="emailError" class="display-none text-center p-errors">
+              Email ou senha inválidos. Corrija e tente novamente
+            </p>
+            <p id="emailSenhaEnviado" class="display-none text-center p-success">
+              Email de Alteração de Senha Enviado!
+            </p>
+            <p id="emailSenhaNaoEnviado" class="display-none text-center p-errors">
+              Email de Alteração de Senha Não Enviado <br>
+              Tente Novamente
+            </p>
 
             <div class="mdl-textfield campo-login mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="email" id="txtEmail"
@@ -89,15 +99,272 @@
             <span class="page-title-span" id="esc"></span>
           </span>
           <div class="mdl-layout-spacer"></div>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="btn-logout">
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="btnLogout">
             Sair
             <i class="material-icons icone-sair">exit_to_app</i>
           </button>
         </div>
       </header>
       <main class="mdl-layout__content">
+
+        <div class="container-fluid">
+
+          <div class="row">
+
+            <aside role="complementary" class="col-md-4">
+              <div class="col mr-auto container-perfil">
+                <div>
+                  <button id="troca-imagem" class="troca-imagem mx-auto d-block">
+                    <div class="container-img-g">
+                      <img id="imagem-perfil-pagina" class="rounded-circle" src="img/user.png" style="width: 150px !important; height: 150px !important;" alt="">
+                      <div class="overlay-g">
+                        <div class="text">Alterar</div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+                <span class="text-center texto-perfil" id="nome-usuario" style="margin-top: 3rem;"></span>
+                <hr class="my-4">
+                <span class="text-center texto-perfil" id="tipo-usuario-perfil"></span>
+                <hr class="my-4 residencial">
+                <div class="row" style="display: flex; justify-content: center">
+                  <span class="text-center texto-perfil residencial" id="bloco-usuario"></span>
+                  <span class="text-center texto-perfil residencial"> | </span>
+                  <span class="text-center texto-perfil" id="apt-usuario"></span>
+                </div>
+                <hr class="my-4">
+                <div class="row" style="display: flex; justify-content: center">
+                  <span class="text-center texto-perfil"> Tel: </span>
+                  <span class="text-center texto-perfil" id="tel-usuario"></span>
+                </div>
+                <hr class="my-4">
+                <div class="row" style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                  <span class="text-center texto-perfil"> Cel: </span>
+                  <span class="text-center texto-perfil" id="cel-usuario"></span>
+                </div>
+                <button id="show-dialog-senha" class="d-block mx-auto mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    Senha
+                  </button>
+                <div class="mdl-tooltip" data-mdl-for="show-dialog-senha">
+                  Altere sua senha <strong>aqui</strong>
+                </div>
+              </div>
+
+            </aside>
+
+            <div role="main" class="col-md-8">
+              <!-- Historico -->
+              <section id="historico-msgs">
+                <div class="container-perfil">
+                  <div class="row" style="display: flex; justify-content: center;">
+                    <h3 class="titulo-sessao mx-auto d-block"> Aqui está um histórico das últimas notificações enviadas, veja e confira! </h3>
+                    <button id="mostra-aguardando" type="button" class="mdl-chip notificacoes-chips">
+                      <span class="mdl-chip__text"><strong>Aguardando</strong></span>
+                    </button>
+
+                    <button id="mostra-retiradas" type="button" class="mdl-chip notificacoes-chips">
+                      <span class="mdl-chip__text"><strong>Retiradas</strong></span>
+                    </button>
+
+                    <button id="mostra-enganos" type="button" class="mdl-chip notificacoes-chips">
+                      <span class="mdl-chip__text"><strong>Enganos</strong></span>
+                    </button>
+                  </div>
+                </div>
+                <div id="notificacoes-aguardando">
+
+                    <!-- Notificacoes Aguardando -->
+
+                </div>
+
+                <div id="notificacoes-retiradas" class="display-none">
+
+                    <!-- Notificacoes Retiradas -->
+
+                </div>
+
+                <div id="notificacoes-engano" class="display-none">
+
+                    <!-- Notificacoes Engano -->
+
+                </div>
+              </section>
+              <!-- /Historico -->
+
+            </div>
+
+          </div>
+          <!-- /Row -->
+
+          <!-- Button Envia Notificacao -->
+          <div class="fixed-bottom col-3" style="margin-left: auto;">
+            <button id="btnNotificacao" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored  mdl-js-ripple-effect btn-notificacao">
+              <i class="material-icons">send</i>
+            </button>
+          </div>
+
+          <!-- Snackbar -->
+          <div id="toast-informacao" style="z-index: 5;" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+          </div>
+
+        </div>
+
       </main>
   </div>
+
+  <!-- NOTIFICACAO -->
+  <dialog class="mdl-dialog" id="dialog-notificacao">
+    <h5 class="mdl-dialog__title titulo-dialog">Enviar Notificação</h5>
+    <div class="mdl-dialog__content">
+
+      <!-- PAGINA INICIAL -->
+      <fieldset id="campos-inicio">
+        <legend style="margin-bottom: 2.5rem;">
+          <strong>Informe os dados</strong>
+        </legend>
+        <p class="display-none" id="blocoAptErrado" style="color: red;">Quadra ou lote inválidos!</p>
+        <div class="row">
+
+          <div class="col-6">
+            <label class="col-form-label" for="quadra">
+              <strong>Quadra</strong>
+            </label>
+            <input required pattern="[a-zA-Z]" maxlength="2" type="text" style="text-decoration: uppercase;" class="form-control" id="quadra" placeholder="Quadra">
+          </div>
+
+          <div class="col-6">
+            <label class="col-form-label" for="lote">
+              <strong>Lote</strong>
+            </label>
+            <input required type="number" max="30" min="1" class="form-control" id="lote"
+            placeholder="Lote">
+          </div>
+
+        </div>
+      </fieldset>
+
+
+      <!-- PAGINA SEGUINTE -->
+      <fieldset id="campos-proximo" class="form-group display-none">
+        <legend style="margin-bottom: 10px;"><strong>Selecione o motivo</strong></legend>
+        <div class="form-check">
+          <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="motivos" id="motivo1" value="motivo1" checked>
+              Nova encomenda
+            </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="motivos" id="motivo2" value="motivo2">
+              Nova carta
+            </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="motivos" id="motivo3" value="motivo3">
+              Nova conta
+            </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+              <input type="radio" class="form-check-input ativaCampoVisita" name="motivos" id="motivo4" value="motivo4">
+              Nova visita na portaria
+            </label>
+        </div>
+
+        <!-- INPUT NOME VISITA -->
+        <div id="campo-visita" style="display: none; margin-top: 15px;">
+          <label for="visita">
+            <strong>Digite o nome do visitante</strong>
+          </label>
+          <input class="form-control" type="text" id="visita" placeholder="Nome da visita">
+        </div>
+
+        <div style="margin-top: 15px;" class="row">
+          <div class="lista-nomes">
+            <label class="col-form-label" for="moradores">
+              <strong>Selecione o morador</strong>
+            </label>
+            <select class="custom-select" id="moradores">
+                <option selected>Nenhum nome selecionado</option>
+              </select>
+          </div>
+        </div>
+
+        <p id="inputError" style="color: red; font-weight: bold; margin-top: 1rem;">Selecione um morador!</p>
+
+      </fieldset>
+
+    </div>
+    <!-- /DIALOG CONTENT -->
+
+    <div class="mdl-dialog__actions">
+      <button id="btnProximo" type="submit" class="mdl-button">Proximo</button>
+      <button id="btnEnviar" type="submit" class="mdl-button display-none">Enviar</button>
+      <button id="cancela" type="submit" class="mdl-button close">Cancela</button>
+    </div>
+  </dialog>
+  <!-- /NOTIFICACAO -->
+
+  <!-- TROCA IMAGEM PERFIL -->
+  <dialog class="mdl-dialog formularios" id="dialog-troca-imagem">
+
+    <h5 class="mdl-dialog__title titulo-dialog text-center" style="margin-bottom: 1.5rem;">Alterar Imagem de Perfil</h5>
+
+    <div class="mdl-dialog__content">
+
+      <fieldset class="form-group">
+        <legend> Nova Imagem </legend>
+        <p>Selecione uma nova foto de perfil</p>
+        <div>
+          <label id="label-imagem-perfil" class="label-inputs" for='imagem-perfil'>Escolher Imagem</label>
+          <input type="file" id="imagem-perfil" value="upload">
+        </div>
+      </fieldset>
+
+      <div id="novaImagemPerfil" class="display-none"></div>
+
+      <p id="sem-imagem" class="display-none" style="color: red; font-weight: bold;">Nenhuma imagem selecionada!</p>
+      <p id="arquivoInvalidoPerfil" class="display-none" style="color: red; font-weight: bold;">Arquivo Inválido!</p>
+
+      <!-- /DIALOG CONTENT -->
+
+    </div>
+
+    <div class="mdl-dialog__actions">
+      <button type="button" id="btnAlterarImagemPerfil" class="mdl-button">Alterar</button>
+      <button type="button" class="mdl-button close">Cancelar</button>
+    </div>
+    <!-- /DIALOG ACTIONS -->
+
+  </dialog>
+  <!-- / TROCA IMAGEM PERFIL -->
+
+  <!-- TROCA SENHA -->
+  <dialog class="mdl-dialog formularios" id="dialog-altera-senha">
+
+    <h5 class="mdl-dialog__title titulo-dialog text-center" style="margin-bottom: 1.5rem;">Alterar Senha</h5>
+
+    <div class="mdl-dialog__content">
+
+      <fieldset class="form-group">
+        <h6 class="text-center" id="status-redefinicao-senha"></h6>
+      </fieldset>
+
+      <!-- /DIALOG CONTENT -->
+
+    </div>
+
+    <div class="mdl-dialog__actions">
+      <button type="button" id="btnEnviarEmail" class="mdl-button">Enviar</button>
+      <button type="button" class="mdl-button close">Cancelar</button>
+    </div>
+    <!-- /DIALOG ACTIONS -->
+
+  </dialog>
+  <!-- /TROCA SENHA -->
 
   <!-- SCRIPTS -->
   <script src="js/jquery-3.2.1.min.js"></script>
@@ -105,10 +372,8 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/app.js"></script>
 
-  <script>
-  escrever(texto, esc);
-  escrever(texto, escLogin);
-  </script>
+  <!-- API Load Image -->
+  <script src="js/load-image.all.min.js"></script>
 
   </body>
 </html>
