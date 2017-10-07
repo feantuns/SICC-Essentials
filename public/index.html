@@ -17,6 +17,7 @@
     <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   </head>
+
   <body>
 
     <!-- Pagina Loading -->
@@ -125,12 +126,12 @@
                 </div>
                 <span class="text-center texto-perfil" id="nome-usuario" style="margin-top: 3rem;"></span>
                 <hr class="my-4">
-                <span class="text-center texto-perfil" id="tipo-usuario-perfil"></span>
+                <span class="text-center texto-perfil" id="tipo-usuario"></span>
                 <hr class="my-4 residencial">
                 <div class="row" style="display: flex; justify-content: center">
-                  <span class="text-center texto-perfil residencial" id="bloco-usuario"></span>
+                  <span class="text-center texto-perfil residencial" id="quadra-usuario"></span>
                   <span class="text-center texto-perfil residencial"> | </span>
-                  <span class="text-center texto-perfil" id="apt-usuario"></span>
+                  <span class="text-center texto-perfil" id="lote-usuario"></span>
                 </div>
                 <hr class="my-4">
                 <div class="row" style="display: flex; justify-content: center">
@@ -149,13 +150,12 @@
                   Altere sua senha <strong>aqui</strong>
                 </div>
               </div>
-
             </aside>
 
             <div role="main" class="col-md-8">
               <!-- Historico -->
-              <section id="historico-msgs">
-                <div class="container-perfil">
+              <section class="display-none" id="historico-msgs">
+                <div class="container-perfil" id="historico-content">
                   <div class="row" style="display: flex; justify-content: center;">
                     <h3 class="titulo-sessao mx-auto d-block"> Aqui está um histórico das últimas notificações enviadas, veja e confira! </h3>
                     <button id="mostra-aguardando" type="button" class="mdl-chip notificacoes-chips">
@@ -170,28 +170,135 @@
                       <span class="mdl-chip__text"><strong>Enganos</strong></span>
                     </button>
                   </div>
-                </div>
-                <div id="notificacoes-aguardando">
 
-                    <!-- Notificacoes Aguardando -->
+                  <div id="notificacoes-aguardando" class="notificacoes">
 
-                </div>
+                      <!-- Notificacoes Aguardando -->
 
-                <div id="notificacoes-retiradas" class="display-none">
+                  </div>
 
-                    <!-- Notificacoes Retiradas -->
+                  <div id="notificacoes-retiradas" class="notificacoes display-none">
 
-                </div>
+                      <!-- Notificacoes Retiradas -->
 
-                <div id="notificacoes-engano" class="display-none">
+                  </div>
 
-                    <!-- Notificacoes Engano -->
+                  <div id="notificacoes-engano" class="notificacoes display-none">
+
+                      <!-- Notificacoes Engano -->
+
+                  </div>
 
                 </div>
               </section>
               <!-- /Historico -->
 
+              <section class="display-none container-perfil" id="cadastroFuncionario">
+                <h5 class="titulo text-center" style="margin-bottom: 1.5rem;">
+                  Novo Funcionário
+                </h5>
+
+                <div class="">
+
+                  <fieldset class="form-group">
+                    <legend> Nome </legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <label class="mdl-textfield__label" for="nome-funcionario">Primeiro Nome</label>
+                      <input class="mdl-textfield__input" id="nome-funcionario" type="text" maxlength="35">
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <legend>Sobrenome </legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <label class="mdl-textfield__label" for="sobrenome-funcionario">Sobrenome</label>
+                      <input class="mdl-textfield__input" id="sobrenome-funcionario" type="text" maxlength="35">
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <legend>Sexo </legend>
+
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="masculino">
+                      <input type="radio" id="masculino" class="mdl-radio__button" name="sexo" value="masc" checked>
+                      <span class="mdl-radio__label">Masculino</span>
+                    </label> <br>
+
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="feminino">
+                      <input type="radio" id="feminino" class="mdl-radio__button" name="sexo" value="fem">
+                      <span class="mdl-radio__label">Feminino</span>
+                    </label>
+
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <legend>Cargo </legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <label class="mdl-textfield__label" for="cargo-funcionario">Cargo do Funcionario</label>
+                      <input class="mdl-textfield__input" id="cargo-funcionario" type="text" maxlength="35">
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <legend>Celular </legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <label class="mdl-textfield__label" for="celular-funcionario">Celular</label>
+                      <input class="mdl-textfield__input" id="celular-funcionario" type="text" onkeypress="soNumeros();formatar('## #####-####', this);" maxlength="13">
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <legend> Telefone </legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <label class="mdl-textfield__label" for="telefone-funcionario">Telefone</label>
+                      <input class="mdl-textfield__input" id="telefone-funcionario" type="text" onkeypress="soNumeros();formatar('## ####-####', this);" maxlength="12">
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <legend> Email </legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <label class="mdl-textfield__label" for="email-funcionario">Email do Funcionario</label>
+                      <input class="mdl-textfield__input" id="email-funcionario" type="email" maxlength="35">
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <legend> Senha </legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <label class="mdl-textfield__label" for="senha-funcionario">min: 6 caracteres</label>
+                      <input class="mdl-textfield__input" id="senha-funcionario" type="password" minlength="6" maxlength="35">
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="form-group">
+                    <legend> Confirmar Senha </legend>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <label class="mdl-textfield__label" for="senha-funcionario">Digite a Senha Novamente</label>
+                      <input class="mdl-textfield__input" id="confirma-senha-funcionario" type="password" minlength="6" maxlength="35">
+                    </div>
+                  </fieldset>
+
+                  <p id="senhas-diferentes" class="display-none p-errors">
+                    As senhas não batem! Digite novamente.
+                  </p>
+
+                  <p>
+                    Aviso! <br> Quando você cadastrar esse funcionário você será redirecionado para a página de login e terá de entrar com sua conta novamente! <br> Pedimos desculpas pelo incômodo
+                  </p>
+
+                  <!-- /DIALOG CONTENT -->
+
+                </div>
+
+                <div class="acoes-login">
+                  <button type="button" id="btnCadastrarFuncionario" class="mdl-button">Cadastrar</button>
+                  <button type="button" class="mdl-button close">Cancelar</button>
+                </div>
+              </section>
+
             </div>
+            <!-- /Main -->
 
           </div>
           <!-- /Row -->
@@ -212,168 +319,169 @@
         </div>
 
       </main>
-  </div>
-
-  <!-- NOTIFICACAO -->
-  <dialog class="mdl-dialog" id="dialog-notificacao">
-    <h5 class="mdl-dialog__title titulo-dialog">Enviar Notificação</h5>
-    <div class="mdl-dialog__content">
-
-      <!-- PAGINA INICIAL -->
-      <fieldset id="campos-inicio">
-        <legend style="margin-bottom: 2.5rem;">
-          <strong>Informe os dados</strong>
-        </legend>
-        <p class="display-none" id="blocoAptErrado" style="color: red;">Quadra ou lote inválidos!</p>
-        <div class="row">
-
-          <div class="col-6">
-            <label class="col-form-label" for="quadra">
-              <strong>Quadra</strong>
-            </label>
-            <input required pattern="[a-zA-Z]" maxlength="2" type="text" style="text-decoration: uppercase;" class="form-control" id="quadra" placeholder="Quadra">
-          </div>
-
-          <div class="col-6">
-            <label class="col-form-label" for="lote">
-              <strong>Lote</strong>
-            </label>
-            <input required type="number" max="30" min="1" class="form-control" id="lote"
-            placeholder="Lote">
-          </div>
-
-        </div>
-      </fieldset>
-
-
-      <!-- PAGINA SEGUINTE -->
-      <fieldset id="campos-proximo" class="form-group display-none">
-        <legend style="margin-bottom: 10px;"><strong>Selecione o motivo</strong></legend>
-        <div class="form-check">
-          <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="motivos" id="motivo1" value="motivo1" checked>
-              Nova encomenda
-            </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="motivos" id="motivo2" value="motivo2">
-              Nova carta
-            </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="motivos" id="motivo3" value="motivo3">
-              Nova conta
-            </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-              <input type="radio" class="form-check-input ativaCampoVisita" name="motivos" id="motivo4" value="motivo4">
-              Nova visita na portaria
-            </label>
-        </div>
-
-        <!-- INPUT NOME VISITA -->
-        <div id="campo-visita" style="display: none; margin-top: 15px;">
-          <label for="visita">
-            <strong>Digite o nome do visitante</strong>
-          </label>
-          <input class="form-control" type="text" id="visita" placeholder="Nome da visita">
-        </div>
-
-        <div style="margin-top: 15px;" class="row">
-          <div class="lista-nomes">
-            <label class="col-form-label" for="moradores">
-              <strong>Selecione o morador</strong>
-            </label>
-            <select class="custom-select" id="moradores">
-                <option selected>Nenhum nome selecionado</option>
-              </select>
-          </div>
-        </div>
-
-        <p id="inputError" style="color: red; font-weight: bold; margin-top: 1rem;">Selecione um morador!</p>
-
-      </fieldset>
-
     </div>
-    <!-- /DIALOG CONTENT -->
 
-    <div class="mdl-dialog__actions">
-      <button id="btnProximo" type="submit" class="mdl-button">Proximo</button>
-      <button id="btnEnviar" type="submit" class="mdl-button display-none">Enviar</button>
-      <button id="cancela" type="submit" class="mdl-button close">Cancela</button>
-    </div>
-  </dialog>
-  <!-- /NOTIFICACAO -->
+    <!-- NOTIFICACAO -->
+    <dialog class="mdl-dialog" id="dialog-notificacao">
+      <h5 class="mdl-dialog__title titulo-dialog">Enviar Notificação</h5>
+      <div class="mdl-dialog__content">
 
-  <!-- TROCA IMAGEM PERFIL -->
-  <dialog class="mdl-dialog formularios" id="dialog-troca-imagem">
+        <!-- PAGINA INICIAL -->
+        <fieldset id="campos-inicio">
+          <legend style="margin-bottom: 2.5rem;">
+            <strong>Informe os dados</strong>
+          </legend>
+          <p class="display-none" id="blocoAptErrado" style="color: red;">Quadra ou lote inválidos!</p>
+          <div class="row">
 
-    <h5 class="mdl-dialog__title titulo-dialog text-center" style="margin-bottom: 1.5rem;">Alterar Imagem de Perfil</h5>
+            <div class="col-6">
+              <label class="col-form-label" for="quadra">
+                <strong>Quadra</strong>
+              </label>
+              <input required type="number" min="1" class="form-control" id="quadra"
+              placeholder="Quadra">
+            </div>
 
-    <div class="mdl-dialog__content">
+            <div class="col-6">
+              <label class="col-form-label" for="lote">
+                <strong>Lote</strong>
+              </label>
+              <input required type="number" min="1" class="form-control" id="lote"
+              placeholder="Lote">
+            </div>
 
-      <fieldset class="form-group">
-        <legend> Nova Imagem </legend>
-        <p>Selecione uma nova foto de perfil</p>
-        <div>
-          <label id="label-imagem-perfil" class="label-inputs" for='imagem-perfil'>Escolher Imagem</label>
-          <input type="file" id="imagem-perfil" value="upload">
-        </div>
-      </fieldset>
+          </div>
+        </fieldset>
 
-      <div id="novaImagemPerfil" class="display-none"></div>
 
-      <p id="sem-imagem" class="display-none" style="color: red; font-weight: bold;">Nenhuma imagem selecionada!</p>
-      <p id="arquivoInvalidoPerfil" class="display-none" style="color: red; font-weight: bold;">Arquivo Inválido!</p>
+        <!-- PAGINA SEGUINTE -->
+        <fieldset id="campos-proximo" class="form-group display-none">
+          <legend style="margin-bottom: 10px;"><strong>Selecione o motivo</strong></legend>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="motivos" id="motivo1" value="motivo1" checked>
+                Nova encomenda
+              </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="motivos" id="motivo2" value="motivo2">
+                Nova carta
+              </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="motivos" id="motivo3" value="motivo3">
+                Nova conta
+              </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input ativaCampoVisita" name="motivos" id="motivo4" value="motivo4">
+                Nova visita na portaria
+              </label>
+          </div>
 
+          <!-- INPUT NOME VISITA -->
+          <div id="campo-visita" style="display: none; margin-top: 15px;">
+            <label for="visita">
+              <strong>Digite o nome do visitante</strong>
+            </label>
+            <input class="form-control" type="text" id="visita" placeholder="Nome da visita">
+          </div>
+
+          <div style="margin-top: 15px;" class="row">
+            <div class="lista-nomes">
+              <label class="col-form-label" for="moradores">
+                <strong>Selecione o morador</strong>
+              </label>
+              <select class="custom-select" id="moradores">
+                  <option selected>Nenhum nome selecionado</option>
+                </select>
+            </div>
+          </div>
+
+          <p id="inputError" style="color: red; font-weight: bold; margin-top: 1rem;">Selecione um morador!</p>
+
+        </fieldset>
+
+      </div>
       <!-- /DIALOG CONTENT -->
 
-    </div>
+      <div class="mdl-dialog__actions">
+        <button id="btnProximo" type="submit" class="mdl-button">Proximo</button>
+        <button id="btnEnviar" type="submit" class="mdl-button display-none">Enviar</button>
+        <button id="cancela" type="submit" class="mdl-button close">Cancela</button>
+      </div>
+    </dialog>
+    <!-- /NOTIFICACAO -->
 
-    <div class="mdl-dialog__actions">
-      <button type="button" id="btnAlterarImagemPerfil" class="mdl-button">Alterar</button>
-      <button type="button" class="mdl-button close">Cancelar</button>
-    </div>
-    <!-- /DIALOG ACTIONS -->
+    <!-- TROCA IMAGEM PERFIL -->
+    <dialog class="mdl-dialog formularios" id="dialog-troca-imagem">
 
-  </dialog>
-  <!-- / TROCA IMAGEM PERFIL -->
+      <h5 class="mdl-dialog__title titulo-dialog text-center" style="margin-bottom: 1.5rem;">Alterar Imagem de Perfil</h5>
 
-  <!-- TROCA SENHA -->
-  <dialog class="mdl-dialog formularios" id="dialog-altera-senha">
+      <div class="mdl-dialog__content">
 
-    <h5 class="mdl-dialog__title titulo-dialog text-center" style="margin-bottom: 1.5rem;">Alterar Senha</h5>
+        <fieldset class="form-group">
+          <legend> Nova Imagem </legend>
+          <p>Selecione uma nova foto de perfil</p>
+          <div>
+            <label id="label-imagem-perfil" class="label-inputs" for='imagem-perfil'>Escolher Imagem</label>
+            <input type="file" id="imagem-perfil" value="upload">
+          </div>
+        </fieldset>
 
-    <div class="mdl-dialog__content">
+        <div id="novaImagemPerfil" class="display-none"></div>
 
-      <fieldset class="form-group">
-        <h6 class="text-center" id="status-redefinicao-senha"></h6>
-      </fieldset>
+        <p id="sem-imagem" class="display-none" style="color: red; font-weight: bold;">Nenhuma imagem selecionada!</p>
+        <p id="arquivoInvalidoPerfil" class="display-none" style="color: red; font-weight: bold;">Arquivo Inválido!</p>
 
-      <!-- /DIALOG CONTENT -->
+        <!-- /DIALOG CONTENT -->
 
-    </div>
+      </div>
 
-    <div class="mdl-dialog__actions">
-      <button type="button" id="btnEnviarEmail" class="mdl-button">Enviar</button>
-      <button type="button" class="mdl-button close">Cancelar</button>
-    </div>
-    <!-- /DIALOG ACTIONS -->
+      <div class="mdl-dialog__actions">
+        <button type="button" id="btnAlterarImagemPerfil" class="mdl-button">Alterar</button>
+        <button type="button" class="mdl-button close">Cancelar</button>
+      </div>
+      <!-- /DIALOG ACTIONS -->
 
-  </dialog>
-  <!-- /TROCA SENHA -->
+    </dialog>
+    <!-- / TROCA IMAGEM PERFIL -->
 
-  <!-- SCRIPTS -->
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/tether.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/app.js"></script>
+    <!-- TROCA SENHA -->
+    <dialog class="mdl-dialog formularios" id="dialog-altera-senha">
 
-  <!-- API Load Image -->
-  <script src="js/load-image.all.min.js"></script>
+      <h5 class="mdl-dialog__title titulo-dialog text-center" style="margin-bottom: 1.5rem;">Alterar Senha</h5>
+
+      <div class="mdl-dialog__content">
+
+        <fieldset class="form-group">
+          <h6 class="text-center" id="status-redefinicao-senha"></h6>
+        </fieldset>
+
+        <!-- /DIALOG CONTENT -->
+
+      </div>
+
+      <div class="mdl-dialog__actions">
+        <button type="button" id="btnEnviarEmail" class="mdl-button">Enviar</button>
+        <button type="button" class="mdl-button close">Cancelar</button>
+      </div>
+      <!-- /DIALOG ACTIONS -->
+
+    </dialog>
+    <!-- /TROCA SENHA -->
+
+    <!-- SCRIPTS -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- API Load Image -->
+    <script src="js/load-image.all.min.js"></script>
 
   </body>
 </html>

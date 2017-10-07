@@ -1,27 +1,25 @@
-const functions = require('firebase-functions');
+const functions = require('firebase-functions')
 
-const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
+const admin = require('firebase-admin')
+admin.initializeApp(functions.config().firebase)
 
-//funcao notificacoes porteiro -> morador
+// funcao notificacoes porteiro -> morador
 exports.novaEncomenda = functions.database.ref('/Mensagens/Todas/{pushId}').onWrite(event => {
+  const snapshot = event.data
 
-  const snapshot = event.data;
+  const nome = snapshot.val().nome
+  const motivo = snapshot.val().motivo
+  const visita = snapshot.val().visita
+  const key = snapshot.key
+  const num = snapshot.numChildren()
+  var payload
 
-  const nome = snapshot.val().nome;
-  const motivo = snapshot.val().motivo;
-  const visita = snapshot.val().visita;
-  const key = snapshot.key;
-  const num = snapshot.numChildren();
-  var payload;
-
-  if(num == 7) {
-    let statusEnvio = admin.database().ref('/Mensagens/Todas/' + key + '/Status')
-    .on('value', function(snapshot) {
-      if(snapshot.val().status == 'Engano') {
-
-        var tokensEngano = [];
-        var token;
+  if (num === 7) {
+    admin.database().ref('/Mensagens/Todas/' + key + '/Status')
+    .on('value', function (snapshot) {
+      if (snapshot.val().status === 'Engano') {
+        var tokensEngano = []
+        var token
         var engano = {
 
           data: {
@@ -31,37 +29,32 @@ exports.novaEncomenda = functions.database.ref('/Mensagens/Todas/{pushId}').onWr
             sound: 'default'
           }
 
-        };
+        }
 
-        let usuariosEngano = admin.database().ref('Usuarios/').orderByChild('nomeCompleto').equalTo(nome)
-        .on('child_added', function(snap) {
-    	    //var len = snap.length;
-    			var key = snap.key;
-          let tokensRef = admin.database().ref('Usuarios/' + key + '/token/')
-          .on('child_added', function(snapshot) {
-              token = snapshot.val();
-              tokensEngano.push(token);
-          });
+        admin.database().ref('Usuarios/').orderByChild('nomeCompleto').equalTo(nome)
+        .on('child_added', function (snap) {
+          var key = snap.key
+          admin.database().ref('Usuarios/' + key + '/token/')
+          .on('child_added', function (snapshot) {
+            token = snapshot.val()
+            tokensEngano.push(token)
+          })
 
           return admin.messaging().sendToDevice(tokensEngano, engano).then(response => {
-
             response.results.forEach((result, index) => {
-                const error = result.error;
-                if (error) {
-                    console.error('Algo deu errado', error);
-                }
-                else{
-                    console.log("Notificação enviada com sucesso!");
-                }
-            });
-
-          });
-        });
+              const error = result.error
+              if (error) {
+                console.error('Algo deu errado', error)
+              } else {
+                console.log('Notificação enviada com sucesso!')
+              }
+            })
+          })
+        })
       }
-    });
-  } else if(num == 6) {
-
-    if(motivo == 'Encomenda') {
+    })
+  } else if (num === 6) {
+    if (motivo === 'Encomenda') {
       payload = {
 
         data: {
@@ -71,8 +64,8 @@ exports.novaEncomenda = functions.database.ref('/Mensagens/Todas/{pushId}').onWr
           sound: 'default'
         }
 
-      };
-    }else if(motivo == 'Carta') {
+      }
+    } else if (motivo === 'Carta') {
       payload = {
 
         data: {
@@ -82,8 +75,8 @@ exports.novaEncomenda = functions.database.ref('/Mensagens/Todas/{pushId}').onWr
           sound: 'default'
         }
 
-      };
-    }else if(motivo == 'Conta') {
+      }
+    } else if (motivo === 'Conta') {
       payload = {
 
         data: {
@@ -93,8 +86,8 @@ exports.novaEncomenda = functions.database.ref('/Mensagens/Todas/{pushId}').onWr
           sound: 'default'
         }
 
-      };
-    }else if(motivo == 'Visita') {
+      }
+    } else if (motivo === 'Visita') {
       payload = {
 
         data: {
@@ -103,36 +96,32 @@ exports.novaEncomenda = functions.database.ref('/Mensagens/Todas/{pushId}').onWr
           icon: 'ic_notification',
           sound: 'default'
         }
-      };
+      }
     }
 
-    var tokensAguardando = [];
-    var token;
+    var tokensAguardando = []
+    var token
 
-    let usuariosAguardando = admin.database().ref('Usuarios/').orderByChild('nomeCompleto').equalTo(nome)
-    .on('child_added', function(snap) {
-      //var len = snap.length;
-      var key = snap.key;
-      let tokensRef = admin.database().ref('Usuarios/' + key + '/token/')
-      .on('child_added', function(snapshot) {
-          token = snapshot.val();
-          tokensAguardando.push(token);
-      });
+    admin.database().ref('Usuarios/').orderByChild('nomeCompleto').equalTo(nome)
+    .on('child_added', function (snap) {
+      // var len = snap.length;
+      var key = snap.key
+      admin.database().ref('Usuarios/' + key + '/token/')
+      .on('child_added', function (snapshot) {
+        token = snapshot.val()
+        tokensAguardando.push(token)
+      })
 
       return admin.messaging().sendToDevice(tokensAguardando, payload).then(response => {
-
         response.results.forEach((result, index) => {
-            const error = result.error;
-            if (error) {
-                console.error('Algo deu errado', error);
-            }
-            else{
-                console.log("Notificação enviada com sucesso!");
-            }
-        });
-
-      });
-    });
-
+          const error = result.error
+          if (error) {
+            console.error('Algo deu errado', error)
+          } else {
+            console.log('Notificação enviada com sucesso!')
+          }
+        })
+      })
+    })
   }
-});
+})
