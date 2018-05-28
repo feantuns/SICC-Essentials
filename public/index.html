@@ -30,7 +30,7 @@
 
     <!-- Login -->
     <div class="wrapper d-flex justify-content-center align-items-center" id="wrapper">
-      <div class="container-login" id="container-login">
+      <div class="container-login container-dialog" id="container-login">
         <a id="saiTrocaSenha" class="display-none" href="#">
           <i class="fa fa-3x fa-arrow-circle-left" style="color: #757575" aria-hidden="true"></i>
         </a>
@@ -126,12 +126,12 @@
                 </div>
                 <span class="text-center texto-perfil" id="nome-usuario" style="margin-top: 3rem;"></span>
                 <hr class="my-4">
-                <span class="text-center texto-perfil" id="tipo-usuario"></span>
+                <span class="text-center texto-perfil" id="tipo-usuario-perfil"></span>
                 <hr class="my-4 residencial">
                 <div class="row" style="display: flex; justify-content: center">
-                  <span class="text-center texto-perfil residencial" id="quadra-usuario"></span>
+                  <span class="text-center texto-perfil residencial" id="bloco-usuario"></span>
                   <span class="text-center texto-perfil residencial"> | </span>
-                  <span class="text-center texto-perfil" id="lote-usuario"></span>
+                  <span class="text-center texto-perfil" id="apt-usuario"></span>
                 </div>
                 <hr class="my-4">
                 <div class="row" style="display: flex; justify-content: center">
@@ -154,8 +154,8 @@
 
             <div role="main" class="col-md-8">
               <!-- Historico -->
-              <section class="display-none" id="historico-msgs">
-                <div class="container-perfil" id="historico-content">
+              <section id="historico-msgs">
+                <div class="container-perfil">
                   <div class="row" style="display: flex; justify-content: center;">
                     <h3 class="titulo-sessao mx-auto d-block"> Aqui está um histórico das últimas notificações enviadas, veja e confira! </h3>
                     <button id="mostra-aguardando" type="button" class="mdl-chip notificacoes-chips">
@@ -170,135 +170,27 @@
                       <span class="mdl-chip__text"><strong>Enganos</strong></span>
                     </button>
                   </div>
+                </div>
+                <div id="notificacoes-aguardando">
 
-                  <div id="notificacoes-aguardando" class="notificacoes">
+                    <!-- Notificacoes Aguardando -->
 
-                      <!-- Notificacoes Aguardando -->
+                </div>
 
-                  </div>
+                <div id="notificacoes-retiradas" class="display-none">
 
-                  <div id="notificacoes-retiradas" class="notificacoes display-none">
+                    <!-- Notificacoes Retiradas -->
 
-                      <!-- Notificacoes Retiradas -->
+                </div>
 
-                  </div>
+                <div id="notificacoes-engano" class="display-none">
 
-                  <div id="notificacoes-engano" class="notificacoes display-none">
-
-                      <!-- Notificacoes Engano -->
-
-                  </div>
+                    <!-- Notificacoes Engano -->
 
                 </div>
               </section>
               <!-- /Historico -->
-
-              <section class="display-none container-perfil" id="cadastroFuncionario">
-                <h5 class="titulo text-center" style="margin-bottom: 1.5rem;">
-                  Novo Funcionário
-                </h5>
-
-                <div class="">
-
-                  <fieldset class="form-group">
-                    <legend> Nome </legend>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <label class="mdl-textfield__label" for="nome-funcionario">Primeiro Nome</label>
-                      <input class="mdl-textfield__input" id="nome-funcionario" type="text" maxlength="35">
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <legend>Sobrenome </legend>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <label class="mdl-textfield__label" for="sobrenome-funcionario">Sobrenome</label>
-                      <input class="mdl-textfield__input" id="sobrenome-funcionario" type="text" maxlength="35">
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <legend>Sexo </legend>
-
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="masculino">
-                      <input type="radio" id="masculino" class="mdl-radio__button" name="sexo" value="masc" checked>
-                      <span class="mdl-radio__label">Masculino</span>
-                    </label> <br>
-
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="feminino">
-                      <input type="radio" id="feminino" class="mdl-radio__button" name="sexo" value="fem">
-                      <span class="mdl-radio__label">Feminino</span>
-                    </label>
-
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <legend>Cargo </legend>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <label class="mdl-textfield__label" for="cargo-funcionario">Cargo do Funcionario</label>
-                      <input class="mdl-textfield__input" id="cargo-funcionario" type="text" maxlength="35">
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <legend>Celular </legend>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <label class="mdl-textfield__label" for="celular-funcionario">Celular</label>
-                      <input class="mdl-textfield__input" id="celular-funcionario" type="text" onkeypress="soNumeros();formatar('## #####-####', this);" maxlength="13">
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <legend> Telefone </legend>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <label class="mdl-textfield__label" for="telefone-funcionario">Telefone</label>
-                      <input class="mdl-textfield__input" id="telefone-funcionario" type="text" onkeypress="soNumeros();formatar('## ####-####', this);" maxlength="12">
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <legend> Email </legend>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <label class="mdl-textfield__label" for="email-funcionario">Email do Funcionario</label>
-                      <input class="mdl-textfield__input" id="email-funcionario" type="email" maxlength="35">
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <legend> Senha </legend>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <label class="mdl-textfield__label" for="senha-funcionario">min: 6 caracteres</label>
-                      <input class="mdl-textfield__input" id="senha-funcionario" type="password" minlength="6" maxlength="35">
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <legend> Confirmar Senha </legend>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <label class="mdl-textfield__label" for="senha-funcionario">Digite a Senha Novamente</label>
-                      <input class="mdl-textfield__input" id="confirma-senha-funcionario" type="password" minlength="6" maxlength="35">
-                    </div>
-                  </fieldset>
-
-                  <p id="senhas-diferentes" class="display-none p-errors">
-                    As senhas não batem! Digite novamente.
-                  </p>
-
-                  <p>
-                    Aviso! <br> Quando você cadastrar esse funcionário você será redirecionado para a página de login e terá de entrar com sua conta novamente! <br> Pedimos desculpas pelo incômodo
-                  </p>
-
-                  <!-- /DIALOG CONTENT -->
-
-                </div>
-
-                <div class="acoes-login">
-                  <button type="button" id="btnCadastrarFuncionario" class="mdl-button">Cadastrar</button>
-                  <button type="button" class="mdl-button close">Cancelar</button>
-                </div>
-              </section>
-
             </div>
-            <!-- /Main -->
 
           </div>
           <!-- /Row -->
@@ -322,7 +214,7 @@
     </div>
 
     <!-- NOTIFICACAO -->
-    <dialog class="mdl-dialog" id="dialog-notificacao">
+    <dialog class="mdl-dialog container-dialog" id="dialog-notificacao">
       <h5 class="mdl-dialog__title titulo-dialog">Enviar Notificação</h5>
       <div class="mdl-dialog__content">
 
@@ -338,15 +230,14 @@
               <label class="col-form-label" for="quadra">
                 <strong>Quadra</strong>
               </label>
-              <input required type="number" min="1" class="form-control" id="quadra"
-              placeholder="Quadra">
+              <input required pattern="[a-zA-Z]" maxlength="2" type="text" style="text-decoration: uppercase;" class="form-control" id="quadra" placeholder="Quadra">
             </div>
 
             <div class="col-6">
               <label class="col-form-label" for="lote">
                 <strong>Lote</strong>
               </label>
-              <input required type="number" min="1" class="form-control" id="lote"
+              <input required type="number" max="30" min="1" class="form-control" id="lote"
               placeholder="Lote">
             </div>
 
@@ -417,7 +308,7 @@
     <!-- /NOTIFICACAO -->
 
     <!-- TROCA IMAGEM PERFIL -->
-    <dialog class="mdl-dialog formularios" id="dialog-troca-imagem">
+    <dialog class="mdl-dialog formularios container-dialog" id="dialog-troca-imagem">
 
       <h5 class="mdl-dialog__title titulo-dialog text-center" style="margin-bottom: 1.5rem;">Alterar Imagem de Perfil</h5>
 
@@ -451,7 +342,7 @@
     <!-- / TROCA IMAGEM PERFIL -->
 
     <!-- TROCA SENHA -->
-    <dialog class="mdl-dialog formularios" id="dialog-altera-senha">
+    <dialog class="mdl-dialog formularios container-dialog" id="dialog-altera-senha">
 
       <h5 class="mdl-dialog__title titulo-dialog text-center" style="margin-bottom: 1.5rem;">Alterar Senha</h5>
 

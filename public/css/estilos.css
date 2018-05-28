@@ -1,0 +1,395 @@
+/* Confirgurações Página Padrões */
+body {
+  background: #f0f0f0;
+  font-family: 'Raleway', sans-serif !important;
+  overflow: hidden;
+}
+button:focus {
+  outline: 0;
+}
+h1, h2, h3, h4, h5, h6, p, a {
+  font-family: 'Raleway', sans-serif !important;
+}
+.display-none {
+  display: none;
+}
+.p-errors {
+  color: #d9534f;
+  margin-top: 1em;
+  font-weight: bold;
+}
+.p-success {
+  color: #5cb85c;
+  margin-top: 1em;
+  font-weight: bold;
+}
+.titulo-sessao {
+  margin-top: 3rem;
+  margin-bottom: 0;
+  text-align: center;
+  color: #777;
+  font-family: 'Raleway', sans-serif;
+}
+.formularios {
+  width: 500px;
+}
+.container-dialog {
+  font-family: 'Raleway', sans-serif !important;
+  border: none;
+  box-shadow: 0 9px 46px 8px rgba(0,0,0,.14), 0 11px 15px -7px rgba(0,0,0,.12), 0 24px 38px 3px rgba(0,0,0,.2);
+  padding: 1em;
+  background-color: white;
+  z-index: 4;
+  position: fixed;
+}
+
+/* Esconde input file */
+input[type='file'] {
+  display: none;
+}
+
+/* Aparência que terá o seletor de arquivo */
+.label-inputs {
+  background-color: #00695c;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  padding: 6px 20px;
+  border-radius: 10px;
+  overflow: auto;
+}
+.label-inputs:hover {
+  background-color: #003d33;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background: #00695c;
+}
+
+/* Login */
+.wrapper {
+  background-color: #757575;
+  width: 100%;
+  height: 100vh;
+  z-index: 3;
+}
+#container-login {
+  width: 350px !important;
+  height: 510px;
+}
+#container-normal h4, #container-troca-senha h4 {
+  margin: 0;
+  font-weight: 500;
+}
+#esc-login {
+  font-family: 'Kaushan Script', cursive !important;
+  font-weight: lighter;
+}
+.conteudo-login {
+  padding: 20px 24px 12px;
+  color: rgba(0,0,0,.54);
+}
+.campo-login {
+  width: 250px;
+  margin-left: 15px;
+}
+.mdl-textfield__input {
+  margin-top: 0px;
+  margin-bottom: 6px;
+  outline: none;
+}
+.mdl-textfield__input:focus {
+  outline: none;
+}
+.acoes-login {
+  padding: 8px 8px 8px 24px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.btn {
+  cursor: pointer;
+}
+#btnLogin {
+  font-weight: bold;
+  color: #00695c;
+}
+#btnTrocaSenha {
+  margin-top: 16px;
+}
+
+/* Loading*/
+#loader {
+  position: fixed;
+  background-color: #FAFAFA;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Header / Cabeçalho */
+.mdl-layout__header {
+  background-color: #00695c;
+  z-index: 1;
+}
+#esc {
+  font-family: 'Kaushan Script', cursive !important;
+  font-weight: lighter;
+}
+#btnLogout {
+  color: white;
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif;
+}
+.icone-sair {
+  padding-left: 10px;
+}
+
+/* Botao Notificacao */
+#btnNotificacao {
+  background-color: #00695c;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 3rem;
+  will-change: initial;
+  transition: none;
+  outline: 0;
+}
+
+/* Perfil */
+#show-dialog-senha {
+  margin-top: 1rem;
+  width: 100px;
+  background-color: #00695c;
+  border-radius: 5px;
+}
+#show-dialog-senha:hover {
+  background-color: #003d33;
+}
+.container-perfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  padding: 16px;
+  height: auto;
+  margin-top: 3rem;
+  border-radius: .25rem;
+  box-shadow: 0px 5px 0.4px rgba(0, 0, 0, 0.3) !important;
+}
+.texto-perfil {
+  padding: 0 10px;
+  font-size: 15pt;
+  color: #757575;
+}
+.img-perfil {
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+  height: 150px;
+}
+.troca-imagem {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+.overlay-g {
+  position: absolute;
+  bottom: 100%;
+  background-color: #00695c;
+  filter: opacity(50%);
+  overflow: hidden;
+  height:0;
+  width: 150px;
+  transition: .5s ease;
+  border-radius: 100px;
+}
+.container-img-g {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container-img-g:hover .overlay-g {
+  bottom: 0;
+  height: 100%;
+}
+
+.text {
+  white-space: nowrap;
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+/* Historico */
+.notificacoes-chips {
+  margin: 0 1rem;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+#mostra-aguardando {
+  color: white;
+  background-color: #757575;
+}
+#mostra-retiradas {
+  color: white;
+  background-color: #5cb85c;
+}
+#mostra-enganos {
+  color: white;
+  background-color: #d9534f;
+}
+
+.linha-historico {
+  margin: 13px 0 !important;
+}
+.card-historico {
+  font-weight: 800 !important;
+  border-radius: 10px;
+}
+
+/* O container geral define a perspectiva */
+.flip-container {
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
+  -ms-transform: perspective(1000px);
+  -moz-transform: perspective(1000px);
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+}
+
+/* vira os containers frente e verso quando o mouse passa em cima */
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+  transform: rotateY(180deg);
+}
+.flip-container {
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12);
+  background-color: white;
+}
+.flip-container, .front, .back {
+  width: 578px;
+  height: 200px;
+}
+
+/* define a velocidade da transição */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+/* esconde o verso durante a animação */
+.front, .back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+ left: 0;
+}
+
+/* frente posicionada sobre o verso */
+.front { z-index: 2;  }
+
+/* verso inicialmente escondido */
+.back { z-index: 1; transform: rotateY(180deg); }
+
+.btn-status-notificacao {
+  margin: 0 1rem;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.btn-status-notificacao:focus {
+  outline: inherit;
+}
+.btn-confirmar:hover {
+  background-color: transparent;
+  border-width: thick;
+  border-color: #5cb85c;
+  color: #5cb85c;
+}
+.btn-engano:hover {
+  background-color: transparent;
+  border-width: thick;
+  border-color: #d9534f;
+  color: #d9534f;
+}
+.btn-confirmar-status {
+  background-color: #00695c;
+  border-color: #00695c;
+}
+.btn-confirmar-status:hover {
+  background-color: #003d33;
+  border-color: #003d33;
+}
+
+/* Notificacao */
+dialog {
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  max-height: 550px;
+  overflow: auto; /* Or scroll, depending on your needs*/
+}
+.titulo-dialog {
+  padding: 24px 24px 10px;
+  margin: 0;
+  font-size: 1.6rem;
+}
+.botao-meio {
+  display: flex;
+  justify-content: flex-end;
+}
+.btn-mostra-lista {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 3rem;
+  will-change: initial;
+  transition: none;
+  outline: 0;
+}
+.email-input {
+  border-bottom: none;
+  outline: 0;
+}
+#inputError {
+  display: none;
+  text-align: center;
+  margin: 0px;
+}
+#mostra-lista {
+  background-color: #00695c;
+  margin-left: auto;
+}
+.dropdown-menu {
+  position: absolute;
+  width: 170px;
+  margin-left: auto;
+}
+.lista-nomes {
+  margin-top: 16px;
+  margin-left: 14px;
+}
